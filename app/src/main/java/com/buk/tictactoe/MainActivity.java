@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,20 +32,33 @@ public class MainActivity extends AppCompatActivity {
         clicked.animate().translationYBy(1000f).rotationBy(360f).setDuration(1000);
         clicked.setClickable(false);
 
-        MainService.showToasterAndStopGame(getApplicationContext(),MainService.checkGame(clicked.getTag().toString(),scoreArray,redDrop));
+        MainService.showToasterAndStopGame(getApplicationContext(),view,MainService.checkGame(clicked.getTag().toString(),scoreArray,redDrop));
 
         redDrop=!redDrop;
-        }
+    }
+
+//    public void playAgain(View view)
+//    {
+//        for(int i=0;i<9;i++)
+//        {
+//            scoreArray[i]=Color.NONE;
+//        }
+//        setContentView(R.layout.activity_main);
+//    }
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        for(Color value:scoreArray)
-        {
-            value=Color.NONE;
-        }
         setContentView(R.layout.activity_main);
+//        for(Color value:scoreArray)
+//        {
+//            value=Color.NONE;
+//        }
+        for(int i=0;i<9;i++)
+        {
+            scoreArray[i]=Color.NONE;
+        }
     }
 }
