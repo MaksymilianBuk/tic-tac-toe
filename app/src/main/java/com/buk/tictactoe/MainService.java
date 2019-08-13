@@ -72,6 +72,5 @@ public abstract class MainService {
 
         //Need to find how to stop game and block rest of clicks... Disable all buttons? Thread stop?
 
-
     }
 }
