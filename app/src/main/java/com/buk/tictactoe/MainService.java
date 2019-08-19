@@ -52,6 +52,31 @@ public abstract class MainService
       return Color.NONE;
    }
 
+   //Stop game and show notification
+   static void endGameAndShowInfo(LinearLayout linearLayout, GridLayout gridLayout, TextView textView, Color color)
+   {
+      if(color==Color.GREEN)
+      {
+         textView.setText("Green player wins");
+         textView.setTextColor(android.graphics.Color.parseColor("#ffffff"));
+         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#0d6134"));
+      }
+      if(color==Color.RED)
+      {
+         textView.setText("Red player wins");
+         textView.setTextColor(android.graphics.Color.parseColor("#ffffff"));
+         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#730707"));
+      }
+      if(color==Color.NONE)
+      {
+         textView.setText("It's a draw! Try again!");
+         textView.setTextColor(android.graphics.Color.parseColor("#000000"));
+         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#7b8087"));
+      }
+      linearLayout.animate().alpha(1f).setDuration(1000);
+      linearLayout.setVisibility(View.VISIBLE);
+      MainService.disableGrid(gridLayout);
+   }
 
    //Disable all ImageViews in GridLayout
    static void disableGrid(GridLayout gridLayout)

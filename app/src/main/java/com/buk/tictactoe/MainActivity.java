@@ -1,7 +1,6 @@
 package com.buk.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import androidx.gridlayout.widget.GridLayout;
@@ -53,45 +52,25 @@ public class MainActivity extends AppCompatActivity
       clickCount++;
 
       //Check if someone wins by validating return value. Show proper notification with animation.
+
       //Green wins.
       if (MainService.checkGame(clicked.getTag().toString(), scoreArray, redTurn) == Color.GREEN)
       {
-         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-         resultNotification = (TextView) findViewById(R.id.resultNotafication);
-         resultNotification.setText("Green player wins");
-         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#0d6134"));
-         //linearLayout.setBackgroundColor(0x0d6134);
-         linearLayout.animate().alpha(1f).setDuration(1000);
-         linearLayout.setVisibility(View.VISIBLE);
-         MainService.disableGrid(gridLayout);
+         MainService.endGameAndShowInfo(linearLayout, gridLayout, resultNotification, Color.GREEN);
       }
+
       //Red wins.
       if (MainService.checkGame(clicked.getTag().toString(), scoreArray, redTurn) == Color.RED)
       {
-         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-         resultNotification = (TextView) findViewById(R.id.resultNotafication);
-         resultNotification.setText("Red player wins");
-         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#730707"));
-         //linearLayout.setBackgroundColor(0x730707);
-         linearLayout.animate().alpha(1f).setDuration(1000);
-         linearLayout.setVisibility(View.VISIBLE);
-         MainService.disableGrid(gridLayout);
+         MainService.endGameAndShowInfo(linearLayout, gridLayout, resultNotification, Color.RED);
       }
+
       //Check if it is a draw by validating total number of turns and show notification.
       if (clickCount >= 9)
       {
-         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-         resultNotification = (TextView) findViewById(R.id.resultNotafication);
-         resultNotification.setText("It's a draw! Try again!");
-         resultNotification.setTextColor(android.graphics.Color.parseColor("#000000"));
-         //resultNotification.setTextColor(0x00000);
-         linearLayout.setBackgroundColor(android.graphics.Color.parseColor("#7b8087"));
-         //linearLayout.setBackgroundColor(0x7b8087);
-         linearLayout.animate().alpha(1f).setDuration(1000);
-         linearLayout.setVisibility(View.VISIBLE);
-         //MainService.disableGrid(gridLayout);
-         //^All buttons are disable anyway
+         MainService.endGameAndShowInfo(linearLayout, gridLayout, resultNotification, Color.NONE);
       }
+
       //Change player1 into player2 (Red into Green or vice versa)
       redTurn = !redTurn;
    }
@@ -99,14 +78,14 @@ public class MainActivity extends AppCompatActivity
    //Start new game.
    public void playAgain(View view)
    {
-      for (int i = 0; i < 9; i++)
+      for (int i = 0; i < scoreArray.length; i++)
       {
          scoreArray[i] = Color.NONE;
       }
       clickCount = 0;
       findViewById(R.id.linearLayout).setVisibility(View.INVISIBLE);
       linearLayout.setAlpha(0f);
-      gridLayout = (GridLayout) findViewById(R.id.gridLayout);
+      //gridLayout = (GridLayout) findViewById(R.id.gridLayout);
       MainService.enableGrid(gridLayout);
       MainService.resetImages(gridLayout);
    }
@@ -118,6 +97,11 @@ public class MainActivity extends AppCompatActivity
       setContentView(R.layout.activity_main);
       clickCount = 0;
       findViewById(R.id.linearLayout).setVisibility(View.INVISIBLE);
+
+      linearLayout=(LinearLayout)findViewById(R.id.linearLayout);
+      gridLayout=(GridLayout) findViewById(R.id.gridLayout);
+      resultNotification=(TextView) findViewById(R.id.resultNotafication);
+
       for (int i = 0; i < 9; i++)
       {
          scoreArray[i] = Color.NONE;
